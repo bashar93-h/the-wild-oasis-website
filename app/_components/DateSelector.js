@@ -53,38 +53,45 @@ function DateSelector({ settings, bookedDates, cabin }) {
           hovered: "bg-blue-200 text-blue-900",
         }}
         classNames={{
-          day: "text-xl hover:bg-blue-600 rounded-full transition", // bigger text + bigger click area
-          months: "flex gap-20",
+          day: "text-lg md:text-xl hover:bg-blue-600 rounded-full transition", // bigger text + bigger click area
+          months: "flex gap-20 flex-col md:flex-row",
         }}
         disabled={(curDate) =>
           isPast(curDate) ||
           bookedDates.some((date) => isSameDay(date, curDate))
         }
       />
-
-      <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
-        <div className="flex items-baseline gap-6">
+      {/* if your flex container's children are text elemets (span inside p)
+       the browser align them by their baseline be default not by vertical center*/}
+      <div className=" flex gap-4 items-center justify-between px-4 md:px-8 bg-accent-500 text-primary-800 h-[72px] relative">
+        <div className="flex items-center gap-6">
           <p className="flex gap-2 items-baseline">
             {discount > 0 ? (
               <>
-                <span className="text-2xl">${regularPrice - discount}</span>
+                <span className="text-xl md:text-2xl">
+                  ${regularPrice - discount}
+                </span>
                 <span className="line-through font-semibold text-primary-700">
                   ${regularPrice}
                 </span>
               </>
             ) : (
-              <span className="text-2xl">${regularPrice}</span>
+              <span className="text-xl md:text-2xl">${regularPrice}</span>
             )}
             <span className="">/night</span>
           </p>
           {numNights ? (
             <>
-              <p className="bg-accent-600 px-3 py-2 text-2xl">
+              <p className="bg-accent-600 px-3 py-2 text-xl md:text-2xl">
                 <span>&times;</span> <span>{numNights}</span>
               </p>
               <p>
-                <span className="text-lg font-bold uppercase">Total</span>{" "}
-                <span className="text-2xl font-semibold">${cabinPrice}</span>
+                <span className="text-base md:text-lg font-bold uppercase">
+                  Total
+                </span>{" "}
+                <span className="text-xl md:text-2xl font-semibold">
+                  ${cabinPrice}
+                </span>
               </p>
             </>
           ) : null}
@@ -92,7 +99,7 @@ function DateSelector({ settings, bookedDates, cabin }) {
 
         {range?.from || range?.to ? (
           <button
-            className="border border-primary-800 py-2 px-4 text-sm font-semibold"
+            className="border border-primary-800 py-2 px-4 text-sm font-semibold absolute top-[120%] left-1/2 -translate-x-1/2 md:static"
             onClick={() => resetRange()}
           >
             Clear

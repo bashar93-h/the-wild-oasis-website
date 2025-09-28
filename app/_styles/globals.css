@@ -37,3 +37,13 @@
   --rdp-background-color: theme("colors.accent.600") !important;
   margin: 0 !important;
 }
+
+/* previously the viewport was scrolling but now the html and body
+   are scrolling(excplicity specified), and the SideNavigationMobile is fixed to the viewport
+   which is not get scrolled anymore (borwsers have different scrolling roots */
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow-y: scroll;
+  }
+}

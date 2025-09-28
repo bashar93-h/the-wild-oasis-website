@@ -9,6 +9,8 @@ function Filter() {
   const pathname = usePathname();
   const router = useRouter();
 
+  const activeFilter = searchParams.get("capacity") || "all";
+
   function handleFilter(filter) {
     // creating a new editable searchParams copy(normal js object)
     const params = new URLSearchParams(searchParams);
@@ -16,28 +18,34 @@ function Filter() {
     // this will update the URL without refreshing the page
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
+
+  function buttonClasses(filter) {
+    return `px-5 py-2 hover:bg-primary-700 ${
+      activeFilter === filter ? "bg-primary-700" : ""
+    }`;
+  }
   return (
-    <div className="border border-primary-800 flex">
+    <div className="border border-primary-800 grid grid-cols-2 sm:flex">
       <button
-        className="px-5 py-2 hover:bg-primary-700"
+        className={buttonClasses("all")}
         onClick={() => handleFilter("all")}
       >
         All cabins
       </button>
       <button
-        className="px-5 py-2 hover:bg-primary-700"
+        className={buttonClasses("small")}
         onClick={() => handleFilter("small")}
       >
         1&mdash;3 guests
       </button>
       <button
-        className="px-5 py-2 hover:bg-primary-700"
+        className={buttonClasses("meduim")}
         onClick={() => handleFilter("meduim")}
       >
         4&mdash;7 guests
       </button>
       <button
-        className="px-5 py-2 hover:bg-primary-700"
+        className={buttonClasses("large")}
         onClick={() => handleFilter("large")}
       >
         8&mdash;12 guests

@@ -15,9 +15,10 @@ export default async function Page() {
   const cabins = await getCabins();
 
   return (
-    <div className="grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">
-      <div className="col-span-3">
-        <h1 className="text-4xl mb-10 text-accent-400 font-medium">
+    <div className="grid grid-cols-1 md:grid-cols-5 md:gap-x-24 md:gap-y-32 gap-y-12 text-base md:text-lg items-center">
+      {/* by default tailwind set the div to order:0 */}
+      <div className="md:col-span-3 ">
+        <h1 className="text-3xl md:text-4xl mb-10 text-accent-400 font-medium">
           Welcome to The Wild Oasis
         </h1>
 
@@ -43,7 +44,7 @@ export default async function Page() {
         </div>
       </div>
 
-      <div className="col-span-2">
+      <div className="md:col-span-2 ">
         {/* here we pretend that we can import the image (it's on our computer) */}
         <Image
           src={image1}
@@ -53,7 +54,7 @@ export default async function Page() {
         />
       </div>
 
-      <div className=" relative col-span-2 aspect-square">
+      <div className="relative md:col-span-2 aspect-square order-2 md:order-none ">
         {/* here we pretend that we can't (the image is in the DB)*/}
         <Image
           src="/about-2.jpg"
@@ -63,8 +64,8 @@ export default async function Page() {
         />
       </div>
 
-      <div className="col-span-3">
-        <h1 className="text-4xl mb-10 text-accent-400 font-medium">
+      <div className="md:col-span-3 order-1 md:order-none">
+        <h1 className="text-3xl md:text-4xl mb-10 text-accent-400 font-medium">
           Managed by our family since 1962
         </h1>
 
@@ -87,12 +88,21 @@ export default async function Page() {
           <div>
             <Link
               href="/cabins"
-              className="inline-block mt-4 bg-accent-500 px-8 py-5 text-primary-800 text-lg font-semibold hover:bg-accent-600 transition-all"
+              className="hidden md:inline-block mt-4 bg-accent-500 px-8 py-5 text-primary-800 text-lg font-semibold hover:bg-accent-600 transition-all"
             >
               Explore our luxury cabins
             </Link>
           </div>
         </div>
+      </div>
+
+      <div className="order-last md:order-none mx-auto">
+        <Link
+          href="/cabins"
+          className="inline-block md:hidden mt-4 bg-accent-500 px-6 py-3 md:px-8 md:py-5 text-primary-800 text-lg font-semibold hover:bg-accent-600 transition-all"
+        >
+          Explore our luxury cabins
+        </Link>
       </div>
     </div>
   );

@@ -1,52 +1,48 @@
-import Link from "next/link";
 import { auth } from "@/app/_lib/auth";
+import Link from "next/link";
+import MobileMenu from "./MobileMenu";
+import UserIcon from "./UserIcon";
 
 export default async function Navigation() {
   const session = await auth();
-  console.log(session);
+  const user = session?.user;
+
+  const menuItmes = [
+    { label: "Cabins", href: "/cabins" },
+    { label: "About", href: "/about" },
+    { label: "Guest area", href: "/account" },
+  ];
+
   return (
-    <nav className="z-10 text-xl">
-      <ul className="flex gap-16 items-center">
-        <li>
-          <Link
-            href="/cabins"
-            className="hover:text-accent-400 transition-colors"
-          >
-            Cabins
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/about"
-            className="hover:text-accent-400 transition-colors"
-          >
-            About
-          </Link>
-        </li>
-        <li>
-          {session?.user?.image ? (
-            <Link
-              href="/account"
-              className="hover:text-accent-400 transition-colors flex items-center gap-4"
-            >
-              <img
-                className="h-8 rounded-full "
-                src={session.user.image}
-                alt={session.user.name}
-                referrerPolicy="no-referrer"
-              />
-              <span>Guest area</span>
-            </Link>
-          ) : (
-            <Link
-              href="/account"
-              className="hover:text-accent-400 transition-colors"
-            >
-              Guest area
-            </Link>
-          )}
-        </li>
-      </ul>
-    </nav>
+    <>
+      <MobileMenu menu={menuItmes} />
+      {user && <UserIcon user={user} styles="md:hidden" />}
+      <nav className="hidden md:block z-10 text-xl">
+        <ul className="flex gap-16 items-center">
+          {menuItmes.slice(0, 2).map((item) => (
+            <li key={item.label}>
+              <Link
+                href={item.href}
+                className="hover:text-accent-400 transition-colors"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+          <li>
+            {user ? (
+              <UserIcon user={user}>Guest area</UserIcon>
+            ) : (
+              <Link
+                href="/account"
+                className="hover:text-accent-400 transition-colors"
+              >
+                Guest area
+              </Link>
+            )}
+          </li>
+        </ul>
+      </nav>
+    </>
   );
 }

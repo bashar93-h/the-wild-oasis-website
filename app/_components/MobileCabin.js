@@ -2,12 +2,15 @@ import Image from "next/image";
 import TextExpander from "./TextExpander";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
 
-function Cabin({ cabin }) {
+function MobileCabin({ cabin }) {
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
     cabin;
   return (
-    <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24">
-      <div className="relative scale-[1.15] -translate-x-3">
+    <div className="md:hidden border border-primary-800 px-2 py-6  mb-24 relative">
+      <h3 className="text-accent-400 font-black text-4xl mb-5 bg-primary-950 px-6 py-3 pb-2 absolute top-0 left-1/2 z-[9] -translate-x-1/2 -translate-y-1/2 w-[80%]">
+        Cabin {name}
+      </h3>
+      <div className="relative h-64 mb-10">
         <Image
           src={image}
           fill
@@ -17,11 +20,7 @@ function Cabin({ cabin }) {
       </div>
 
       <div>
-        <h3 className="text-accent-100 font-black text-7xl mb-5 translate-x-[-254px] bg-primary-950 p-6 pb-1 w-[150%]">
-          Cabin {name}
-        </h3>
-
-        <p className="text-lg text-primary-300 mb-10 h-[275px]">
+        <p className="text-lg text-primary-300 mb-10 h-auto">
           <TextExpander>{description}</TextExpander>
         </p>
 
@@ -51,4 +50,4 @@ function Cabin({ cabin }) {
   );
 }
 
-export default Cabin;
+export default MobileCabin;
